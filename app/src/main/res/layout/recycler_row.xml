@@ -1,0 +1,62 @@
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/counter_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:layout_centerInParent="true"
+        android:background="@color/bej">
+
+        <TextView
+            android:id="@+id/counterText"
+            android:layout_width="317dp"
+            android:textSize="20dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/counter"
+            android:layout_width="325dp"
+            android:textSize="36dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/counterText"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/decrementButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/counter"
+            android:layout_marginTop="11dp"
+            android:onClick="decrementButtonClicked"
+            android:text="-" />
+
+        <Button
+            android:id="@+id/incrementButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/counter"
+            android:layout_alignEnd="@+id/counter"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="-1dp"
+            android:onClick="private fun incrementCounter(position: Int) {             val counter = counterList[position]             counter.count++             notifyItemChanged(position)         }          private fun decrementCounter(position: Int) {             val counter = counterList[position]             if (counter.count > 0) {                 counter.count--                 notifyItemChanged(position)             }         }"
+            android:text="+" />
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

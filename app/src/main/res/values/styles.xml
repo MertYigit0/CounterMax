@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Diğer stil öğeleri -->
+        <!-- ... -->
+
+        <!-- Durum çubuğu (notification bar) rengi -->
+        <item name="android:statusBarColor">@color/pink</item>
+
+        <!-- Durum çubuğu (notification bar) yazı rengi -->
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>
