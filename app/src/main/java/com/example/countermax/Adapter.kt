@@ -9,7 +9,7 @@ import com.example.countermax.databinding.RecyclerRowBinding
 
 class Adapter(private val counterList: ArrayList<Counter>) : RecyclerView.Adapter<Adapter.MyViewHolder>() {
 
-    class MyViewHolder(val binding: RecyclerRowBinding) : RecyclerView.ViewHolder(binding.root) {
+    class MyViewHolder(val binding: RecyclerRowBinding, private val adapter: Adapter) : RecyclerView.ViewHolder(binding.root) {
 
         init {
             binding.incrementButton.setOnClickListener {
@@ -28,18 +28,22 @@ class Adapter(private val counterList: ArrayList<Counter>) : RecyclerView.Adapte
         }
 
         private fun incrementButtonClicked(position: Int) {
-       
+            val counter = adapter.counterList[position]
+            counter.count++
+            adapter.notifyItemChanged(position)
         }
 
         private fun decrementButtonClicked(position: Int) {
-
+            val counter = adapter.counterList[position]
+            counter.count--
+            adapter.notifyItemChanged(position)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = RecyclerRowBinding.inflate(inflater, parent, false)
-        return MyViewHolder(binding)
+        return MyViewHolder(binding, this)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
