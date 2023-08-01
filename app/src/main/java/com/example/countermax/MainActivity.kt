@@ -27,13 +27,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         counterList = ArrayList<Counter>()
-
+/*
         val counter1 = Counter("Water",1)
         val counter2 = Counter("Book Page",4)
 
-
         counterList.add(counter1)
         counterList.add(counter2)
+*/
 
 
         binding.recyclerView.layoutManager = GridLayoutManager(this,2)
