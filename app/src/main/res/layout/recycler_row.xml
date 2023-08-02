@@ -44,8 +44,8 @@
 
         <Button
             android:id="@+id/decrementButton"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="65dp"
+            android:layout_height="50dp"
             android:layout_below="@+id/counter"
             android:layout_marginTop="11dp"
             android:onClick="decrementButtonClicked"
@@ -53,32 +53,37 @@
 
         <Button
             android:id="@+id/incrementButton"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="65dp"
+            android:layout_height="50dp"
             android:layout_below="@+id/counter"
             android:layout_alignEnd="@+id/counter"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="-1dp"
+            android:layout_marginEnd="-10dp"
             android:onClick="incrementButtonClicked"
             android:text="+"
             tools:ignore="OnClick" />
 
         <ImageButton
             android:id="@+id/doneButton"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:layout_alignParentStart="true"
-            android:layout_toStartOf="@+id/deleteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@color/cardview_shadow_end_color"
+            android:layout_above="@id/incrementButton"
+            android:layout_alignStart="@id/incrementButton"
+            android:layout_marginStart="35dp"
+            android:layout_marginBottom="117dp"
             android:src="@drawable/baseline_done_24" />
 
         <ImageButton
             android:id="@+id/deleteButton"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentEnd="true"
+            android:layout_width="36dp"
+            android:layout_height="44dp"
+            android:layout_above="@id/decrementButton"
+            android:background="@color/cardview_shadow_end_color"
+            android:layout_alignStart="@id/decrementButton"
+            android:layout_marginStart="21dp"
+            android:layout_marginBottom="114dp"
             android:src="@drawable/baseline_delete_forever_24" />
-
-
 
 
     </RelativeLayout>
