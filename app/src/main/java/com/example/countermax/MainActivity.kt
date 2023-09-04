@@ -1,52 +1,45 @@
 package com.example.countermax
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.countermax.databinding.ActivityMainBinding
+import com.example.countermax.databinding.RecyclerRowBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var counterList: ArrayList<Counter>
     private lateinit var binding: ActivityMainBinding
-
-
-
+    private lateinit var adapter: Adapter // Adapter değişkenini onCreate içinde tanımlıyoruz
+    private lateinit var sharedPref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-
-
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
-        counterList = ArrayList<Counter>()
+        sharedPref = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
 
-        val counter1 = Counter("Water",1)
-        val counter2 = Counter("Book Page",4)
+        counterList = ArrayList()
+        loadCountersFromSharedPreferences()
 
-        counterList.add(counter1)
-        counterList.add(counter2)
-
-
-
-        binding.recyclerView.layoutManager = GridLayoutManager(this,2)
-        val adapter = Adapter(counterList)
+        binding.recyclerView.layoutManager = GridLayoutManager(this, 2)
+        adapter = Adapter(counterList) // Adapter'i onCreate içinde oluşturuyoruz
         binding.recyclerView.adapter = adapter
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener {
             fabClicked()
         }
-
     }
-
 
     fun fabClicked() {
         val builder = AlertDialog.Builder(this)
@@ -72,7 +65,8 @@ class MainActivity : AppCompatActivity() {
             if (name.isNotEmpty() && count != null) {
                 val newCounter = Counter(name, count)
                 counterList.add(newCounter)
-                binding.recyclerView.adapter?.notifyItemInserted(counterList.size - 1)
+                adapter.notifyItemInserted(counterList.size - 1)
+                saveCountersToSharedPreferences()
             }
 
             dialog.dismiss()
@@ -85,17 +79,23 @@ class MainActivity : AppCompatActivity() {
         builder.create().show()
     }
 
+    private fun saveCountersToSharedPreferences() {
+        val editor = sharedPref.edit()
+        for (counter in counterList) {
+            editor.putString("CounterName_${counter.name}", counter.name)
+            editor.putInt("CounterValue_${counter.name}", counter.count)
+        }
+        editor.apply()
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
+    private fun loadCountersFromSharedPreferences() {
+        val counterNames = sharedPref.all.keys.filter { it.startsWith("CounterName_") }
+        for (nameKey in counterNames) {
+            val name = sharedPref.getString(nameKey, "") ?: ""
+            val countKey = "CounterValue_$name"
+            val count = sharedPref.getInt(countKey, 0)
+            counterList.add(Counter(name, count))
+        }
+    }
 }
+
