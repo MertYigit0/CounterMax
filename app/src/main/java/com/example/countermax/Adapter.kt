@@ -47,15 +47,20 @@ class Adapter(private val counterList: ArrayList<Counter>) : RecyclerView.Adapte
                 true
             }
 
-            // Silme butonuna tıklanınca
+// Silme butonuna tıklanınca
             binding.deleteButton.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     deleteButtonClicked(position)
                 }
             }
-            //done button tiklaninca
+
+//done button tiklaninca
             binding.doneButton.setOnClickListener {
+                // EditText'leri etkileşim dışı bırak
+                binding.counter.isEnabled = false
+                binding.counterText.isEnabled = false
+
                 // EditText'lerin içindeki değerleri al
                 val updatedCounterName = binding.counterText.text.toString()
                 val updatedCounterValue = binding.counter.text.toString().toInt()
@@ -69,12 +74,11 @@ class Adapter(private val counterList: ArrayList<Counter>) : RecyclerView.Adapte
                     adapter.notifyItemChanged(position)
                 }
 
-                // Düzenlemeyi bitir ve EditText öğelerini düzenlenemez hale getir
-                binding.counter.isEnabled = false
-                binding.counterText.isEnabled = false
+                // Silme ve done butonlarını gizle
                 binding.deleteButton.visibility = View.GONE
                 binding.doneButton.visibility = View.GONE
             }
+
 
 
         }

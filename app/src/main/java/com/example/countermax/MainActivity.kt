@@ -84,6 +84,7 @@ class MainActivity : AppCompatActivity() {
         for (counter in counterList) {
             editor.putString("CounterName_${counter.name}", counter.name)
             editor.putInt("CounterValue_${counter.name}", counter.count)
+
         }
         editor.apply()
     }

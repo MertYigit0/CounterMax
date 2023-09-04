@@ -17,4 +17,9 @@
 
         <!-- Diğer özel özellikleri ekleyebilirsiniz -->
     </style>
+    <style name="DisabledEditText">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:background">@null</item>
+    </style>
+
 </resources>
