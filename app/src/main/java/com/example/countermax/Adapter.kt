@@ -21,6 +21,15 @@ class Adapter(private val counterList: ArrayList<Counter>) : RecyclerView.Adapte
                 if (position != RecyclerView.NO_POSITION) {
                     incrementButtonClicked(position)
                 }
+                // Silme ve done butonlarını gizle
+                binding.deleteButton.visibility = View.GONE
+                binding.doneButton.visibility = View.GONE
+
+                // EditText alanlarını etkileşim dışı bırakın
+                binding.counter.isFocusable = false
+                binding.counter.isFocusableInTouchMode = false
+                binding.counterText.isFocusable = false
+                binding.counterText.isFocusableInTouchMode = false
             }
 
             binding.decrementButton.setOnClickListener {
@@ -28,11 +37,23 @@ class Adapter(private val counterList: ArrayList<Counter>) : RecyclerView.Adapte
                 if (position != RecyclerView.NO_POSITION) {
                     decrementButtonClicked(position)
                 }
+                // Silme ve done butonlarını gizle
+                binding.deleteButton.visibility = View.GONE
+                binding.doneButton.visibility = View.GONE
+
+                // EditText alanlarını etkileşim dışı bırakın
+                binding.counter.isFocusable = false
+                binding.counter.isFocusableInTouchMode = false
+                binding.counterText.isFocusable = false
+                binding.counterText.isFocusableInTouchMode = false
+
             }
 
             // Silme butonunu varsayılan olarak gizle
             binding.deleteButton.visibility = View.GONE
             binding.doneButton.visibility = View.GONE
+
+
             // CardView'a uzun basıldığında
             binding.counterCard.setOnLongClickListener {
 
@@ -44,6 +65,11 @@ class Adapter(private val counterList: ArrayList<Counter>) : RecyclerView.Adapte
                 // Silme butonunu görünür yapın
                 binding.deleteButton.visibility = View.VISIBLE
                 binding.doneButton.visibility = View.VISIBLE
+
+                binding.counter.isFocusable = true
+                binding.counter.isFocusableInTouchMode = true
+                binding.counterText.isFocusable = true
+                binding.counterText.isFocusableInTouchMode = true
                 true
             }
 
@@ -107,10 +133,19 @@ class Adapter(private val counterList: ArrayList<Counter>) : RecyclerView.Adapte
             counter.count--
             adapter.notifyItemChanged(position)
         }
+
         private fun deleteButtonClicked(position: Int) {
+            val counter = adapter.counterList[position]
             adapter.counterList.removeAt(position)
             adapter.notifyItemRemoved(position)
+
+            // Şimdi SharedPreferences'ten de silme işlemi gerçekleştirin
+            val mainActivity =  binding.counterCard.context as? MainActivity
+            mainActivity?.deleteCounterFromSharedPreferences(counter)
+
         }
+
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {

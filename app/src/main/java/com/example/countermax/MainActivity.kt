@@ -126,5 +126,13 @@ class MainActivity : AppCompatActivity() {
             counterList.add(Counter(name, count))
         }
     }
+
+    fun deleteCounterFromSharedPreferences(counter: Counter) {
+        val editor = sharedPref.edit()
+        editor.remove("CounterName_${counter.name}")
+        editor.remove("CounterValue_${counter.name}")
+        editor.apply()
+    }
+
 }
 
