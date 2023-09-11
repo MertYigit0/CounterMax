@@ -8,10 +8,12 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.countermax.databinding.ActivityMainBinding
 import com.example.countermax.databinding.RecyclerRowBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.util.Collections
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,6 +41,30 @@ class MainActivity : AppCompatActivity() {
         fab.setOnClickListener {
             fabClicked()
         }
+
+            //Drag and drop to Reorder the RecylerView Items
+        val itemTouchHelper = ItemTouchHelper(object  : ItemTouchHelper.SimpleCallback
+            (ItemTouchHelper.UP or  ItemTouchHelper.DOWN or ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT , 0){
+            override fun onMove(
+                recyclerView: RecyclerView,
+                source: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                val sourcePosition = source.adapterPosition
+                val targerPosition = target.adapterPosition
+
+                Collections.swap(counterList,sourcePosition,targerPosition)
+                adapter.notifyItemMoved(sourcePosition,targerPosition)
+
+                return true
+            }
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                TODO("Not yet implemented")
+            }
+        })
+            itemTouchHelper.attachToRecyclerView(binding.recyclerView)
+            //
+
     }
 
     fun fabClicked() {
