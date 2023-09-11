@@ -58,12 +58,14 @@ class MainActivity : AppCompatActivity() {
 
                 return true
             }
+
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 TODO("Not yet implemented")
             }
+
         })
             itemTouchHelper.attachToRecyclerView(binding.recyclerView)
-            //
+
 
     }
 
