@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity() {
         builder.create().show()
     }
 
-    private fun saveCountersToSharedPreferences() {
+  fun saveCountersToSharedPreferences() {
         val editor = sharedPref.edit()
         for (counter in counterList) {
             editor.putString("CounterName_${counter.name}", counter.name)
@@ -116,6 +116,7 @@ class MainActivity : AppCompatActivity() {
         }
         editor.apply()
     }
+
 
     private fun loadCountersFromSharedPreferences() {
         val counterNames = sharedPref.all.keys.filter { it.startsWith("CounterName_") }

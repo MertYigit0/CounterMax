@@ -126,12 +126,16 @@ class Adapter(private val counterList: ArrayList<Counter>) : RecyclerView.Adapte
             val counter = adapter.counterList[position]
             counter.count++
             adapter.notifyItemChanged(position)
+            val mainActivity =  binding.counterCard.context as? MainActivity
+            mainActivity?.saveCountersToSharedPreferences()
         }
 
         private fun decrementButtonClicked(position: Int) {
             val counter = adapter.counterList[position]
             counter.count--
             adapter.notifyItemChanged(position)
+            val mainActivity =  binding.counterCard.context as? MainActivity
+            mainActivity?.saveCountersToSharedPreferences()
         }
 
         private fun deleteButtonClicked(position: Int) {
